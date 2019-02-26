@@ -21,6 +21,9 @@
 		case 'ExA_sch_detail':
 			include 'view_exam_admin/1_exam_sch_detail.php';
 			break;
+		case 'ExA_sch_edit':
+			include 'view_exam_admin/1_exam_schedule_edit.php';
+			break;
 		case 'ExA_result_detail':
 			include 'view_exam_admin/1_exam_result_detail.php';
 			break;

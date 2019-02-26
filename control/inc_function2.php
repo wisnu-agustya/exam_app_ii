@@ -914,7 +914,7 @@ function cekSessionExist(){
 		return false;
 	}
 }
-function cekOpportunity(){
+function cekOpportunity(){ // untuk menghitung ujian user sudah remidial
 	global $id_peserta,$exam_group;
 	$sql="select max(notif) from user_test where id_peserta = '".sqlValue($id_peserta)."'";
 	$rs=mysqli_query($GLOBALS['link'],$sql) or die(mysqli_error($GLOBALS['link']));

@@ -101,25 +101,40 @@ $js="";
 				}else {
 					
 					if (cekOpportunity()) {
-						$rs=mysqli_query($GLOBALS['link'],"SELECT id_schedule from exam_schedule where exam_group=".$_SESSION['exam_group']);
-						$row=mysqli_fetch_row($rs);
-						if (cekTimeSchedule($row[0])) {
-						}else{
-							cancelLogin($_SESSION['id_peserta'],$_SESSION['exam_group']);
+						if ($res=cekSessionExist()) {
+							cancelLogin($_SESSION['id_peserta'], $_SESSION['exam_group']);
+							$n = cekPermitCust();
+							$idses = $_SESSION['cust_group'];
+							$views = cekViewResult($idses);
+							$view = mysqli_fetch_array($views);;
+							if ($view[2] == 'true') {
+								echo "<h3 style='text-align:center;color:red;'>Mohon Maaf Anda Sudah mengikuti ujian</h3>";
+								viewResultExam($res);
+							} else {
+								$v = viewResultNone();
+								echo ($v);
+							}
+							die();
+						} else{
+							$rs=mysqli_query($GLOBALS['link'],"SELECT id_schedule from exam_schedule where exam_group=".$_SESSION['exam_group']);
+							$row=mysqli_fetch_row($rs);
+							if (cekTimeSchedule($row[0])) {
+							}else{
+								cancelLogin($_SESSION['id_peserta'],$_SESSION['exam_group']);
+								echo ("<script LANGUAGE='JavaScript'>
+										window.alert('Login time is Limit \\nPlease Contact Administrator');
+										window.location.href='../logout.php';
+										</script>");
+								die('Error Time Ujian');
+							}
 							echo ("<script LANGUAGE='JavaScript'>
-							    window.alert('Login time is Limit \\nPlease Contact Administrator');
-							    window.location.href='../logout.php';
-							    </script>");
-							die('Error Time Ujian');
+											window.alert('Login Success');
+											</script>");
+							echo "<div style=\"background-image:url('../assets/img/class.jpg'); background-size:100%;height:560px;\">";
+							startPage();
+							echo "</div>";
+							die();
 						}
-						 echo ("<script LANGUAGE='JavaScript'>
-				            window.alert('Login Success');
-				            </script>");
-						echo "<div style=\"background-image:url('../assets/img/class.jpg'); background-size:100%;height:560px;\">";
-						startPage();
-						echo "</div>";
-
-						die();
 					} else{
 						$res=cekSessionExist();
 						cancelLogin($_SESSION['id_peserta'], $_SESSION['exam_group']);

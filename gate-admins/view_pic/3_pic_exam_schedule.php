@@ -66,7 +66,9 @@ if (isset($_POST['cmd'])) {
                             $token="<button type=\"button\" class=\"btn btn-xs btn-default btn-block \">Expired</button>";
                         }
                     }
-                  }echo '
+                  }
+                  $today = timeVar();
+                  echo '
                   <tr>
                     <td>'.$no.'</td>
                     <td>'.date('d.M.Y', strtotime($row[1])).'</td>
@@ -76,9 +78,10 @@ if (isset($_POST['cmd'])) {
                     <td>'.$row[5].'</td>
                     <td>'.$row[6].'</td>
                     <td>';
+                    $expTime = date('H:i:s', strtotime("+15 minutes", strtotime($row[2])));
                     if ($row[5]!='init') {
                       echo '<a href="?pg=pic_sch_detail&CC='.$row[0].'"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-info-circle"></i>  Detail</button></a> ';
-                    }else if ($row[5]=='init' AND cekTimeSchedule($row[0])) {
+                    }else if ($row[5]=='init' AND $expTime>=$today[1] AND $row[1]>=$today[0]) {
                        echo '<a href="?pg=pic_exam_edit&CC='.$row[0].'"><button type="button" class="btn btn-xs btn-info"><i class="fa fa-edit"></i>  Edit</button></a> ';
                     }
                     echo '</td>

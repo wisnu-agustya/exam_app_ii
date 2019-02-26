@@ -29,6 +29,10 @@ while ($row = mysqli_fetch_array($rs)) {
 					<input class="form-control" type="number" name="tot" value="<?= $result[1][6] ?>">
 				</div>
 				<div class="form-group">
+					<label>Duration</label>
+					<input class="form-control" type="number"  name="duration" value="<?= $result[1][7] ?>" placeholder='On Minutes' required>
+				</div>
+				<div class="form-group">
 					<label>Exam Opportunity</label>
 					<select class="form-control" name="margin">
 					<?php
