@@ -9,7 +9,15 @@ $data = mysqli_fetch_array(editCustomer($id));
 				$program = $_POST['program'];
 				$amount = $_POST['amount'];
 				$type = $_POST['type'];
-				addVoucher($customer,$program,$amount,$today,$type);
+				$inv_num = $_POST['invoice_num'];
+				$inv_date = $_POST['invoice_date'];
+				if (checkExistingVoucher($customer,$program,$type)) {
+					addVoucher($customer,$program,$amount,$today,$type,$inv_num,$inv_date);
+				}else{
+					echo ("	<script LANGUAGE='JavaScript'>
+						    window.alert(\"Duplicate Voucher\");
+						</script>");
+				}
 				break;
 			case 'Delete':
 				$id = $_POST['id'];
@@ -100,7 +108,7 @@ input[type=radio] + label {
 					<tbody>
 						<?php
 							$no = 1;
-							$result=showVoucher($id);
+							$result=showVoucher($id,null);
 							while($row = mysqli_fetch_array($result)){
 								echo '
 								<tr>
@@ -110,7 +118,7 @@ input[type=radio] + label {
 									<td>'.$row[4].'</td>
 									<td>'.$row[3].'</td>
 									<td>
-									<a href ="?pg=detail_voucher&id='.$row[0].'" > <button type="button" class="btn btn-xs btn-info "><i class="fa fa-table"></i>  Stock Card</button></a> 
+									<a href ="?pg=detail_voucher&id='.$row[0].'" > <button type="button" class="btn btn-xs btn-info "><i class="fa fa-table"></i>  Stock Card</button></a> <a href ="?pg=approve_remidial&id_cust='.$id.'&prog='.$row[5].'" class="btn btn-xs btn-success "> <i class="fa fa-check-square-o"></i>  Approve Remidial</a>
 									<button type="button" class="btn btn-xs btn-primary "  data-id="'.$row[0].'" data-toggle="modal" data-target="#topup_voucher"><i class="fa fa-shopping-cart"></i>  Transaksi</button> &nbsp
 								</tr>
 								';
@@ -139,6 +147,17 @@ input[type=radio] + label {
 							<label>Customer</label>
 								<input type="text" name="customer_name" value="<?=$data[1]?>" id="txtCust" class="form-control" readonly/>
 								<input type="hidden" name="customer" value="<?=$id?>" id="id" class="form-control"/>
+						</div>	
+						<div class="form-group">
+							<label>Invoice Number</label>
+							<input type="text" class="form-control"  name="invoice_num" required="">
+						</div>
+						<div class="form-group">
+							<label>Invoice Date</label>
+							<div class="controls input-append date form_date"  data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+							<input class="form-control" name="invoice_date" placeholder="yyyy-mm-dd" required>
+							<span class="add-on"><i class="icon-th"></i></span>
+							</div>
 						</div>
 						<div class="form-group">
 							<label>Program Name</label>
@@ -196,7 +215,18 @@ input[type=radio] + label {
 
 			<script>
 			$(document).ready(function() {
-				$('#tbVoucher').DataTable();
+				$('#tbVoucher').DataTable({
+				"paging": true,
+				"columnDefs":[
+					{"width": "2%", "targets":0},
+					{"width": "35%", "targets":1},
+					{"width": "10%", "targets":2},
+					{"width": "10%", "targets":3},
+					{"width": "10%", "targets":4},
+					{"width": "30%", "targets":5}
+				]
+				}
+				);
 			} );
 			</script>
 			

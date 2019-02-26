@@ -25,7 +25,7 @@ if (isset($_POST['no'])) {
       $no = $_POST['no'];
       $nomorSoal = $no;
       $id_soal = $_POST['id_soal'];
-      updateRunQuest($_POST['answer'],$id_soal);
+      //updateRunQuest($_POST['answer'],$id_soal);
       break;
     case 'Prev':
       $no = $_POST['no'];

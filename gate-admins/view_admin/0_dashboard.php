@@ -9,7 +9,9 @@ if (isset($_POST['cmd'])) {
 			case 'top-up':
 				$id = $_POST['id_voucher'];
 				$topup = $_POST['top-up'];
-				topUpVoucher($id,$topup);
+				$inv_num = $_POST['invoice_num'];
+				$inv_date = $_POST['invoice_date'];
+				topUpVoucher($id_v,$topup,$inv_num,$inv_date);
 				break;
 			case 'Add PIC':  
 				$id = $_POST['id'];
@@ -192,7 +194,7 @@ if (isset($_POST['cmd'])) {
 				<tbody>
 				<?php
 				$no = 1;
-				$result=showVoucher();
+				$result=showVoucher(null,null);
 				while($row = mysqli_fetch_array($result)){
 				echo '
 				<tr>

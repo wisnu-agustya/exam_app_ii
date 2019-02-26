@@ -35,7 +35,7 @@ if (isset($_POST['no'])) {
       $no = $_POST['no'];
       $nomorSoal = $no;
       $id_soal = $_POST['id_soal'];
-      updateRunQuest($_POST['answer'],$id_soal);
+      updateRunQuest($_POST['answer'],$id_soal,'False');
       // echo "<script>window.location.href = window.location.href;</script>";
       break;
     case 'Prev':

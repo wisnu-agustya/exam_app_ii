@@ -15,6 +15,9 @@
 		case 'detail_voucher':
 			include 'view_admin_office/4_detail_voucher.php';
 			break;
+		case 'detail_exam':
+			include 'view_admin_office/4_detail_history_V.php';
+			break;
 		case 'admin_showReport':
 			include 'view_admin_office/5_1show_report.php';
 			break;	
@@ -23,6 +26,9 @@
 			break;	
 		case 'man_voucher':
 			include 'view_admin_office/6_1man_voucher.php';
+			break;
+		case 'approve_remidial':
+			include 'view_admin_office/6_2man_user_remidial.php';
 			break;	
 		case 'admin_report':
 			//include '../assets/error-404/index.html';

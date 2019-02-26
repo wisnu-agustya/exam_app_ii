@@ -149,8 +149,8 @@ function cekViewResult($id){
 }
 // ================================================================================================================
 // Add New Customer
-function addCustomer($name,$address,$phone,$email,$logo){
-	$carikode = mysqli_query($GLOBALS['link'], "SELECT MAX(id_customer) FROM customer") or DIE (mysqli_error());
+function addCustomer($name,$address,$phone,$email,$logo,$result){
+	$carikode = mysqli_query($GLOBALS['link'], "SELECT MAX(id_customer) FROM customer") or die (mysqli_error($GLOBALS['link']));
 		// menjadikannya array
 		$datakode = mysqli_fetch_array($carikode);
 		// jika $datakode
@@ -166,6 +166,8 @@ if ($datakode) {
 }
 	$sql="INSERT INTO `customer`(id_customer,`cust_name`, `address`, `phone_off`, `email_off`, `logo`) VALUES ('$new_id','".sqlValue($name)."','".sqlValue($address)."','".sqlValue($phone)."','".sqlValue($email)."','".sqlValue($logo)."')";
 	mysqli_query($GLOBALS['link'],$sql) or die($sql);
+		$sql_setting = "INSERT IGNORE INTO `customer_set`(id_customer,`set_view_result`) VALUES ('$new_id','$result')";
+		$res_setting = mysqli_query($GLOBALS['link'], $sql_setting) or die($sql_setting);
 }
 function showCustomer(){
 	$res = mysqli_query($GLOBALS['link'],"SELECT * FROM customer");
@@ -306,7 +308,6 @@ function updateUser_1($id, $name, $dob, $pob, $address, $phone, $email, $role, $
 		$res_1 = mysqli_query($GLOBALS['link'], $sql_1);
 	$sql_2 = "UPDATE auth SET uname='$uname', level_auth='$role' WHERE user_auth='$id'";
 		$res_2 = mysqli_query($GLOBALS['link'], $sql_2);
-	mysqli_query();
 }
 function updateUser_2($id, $name, $dob, $pob, $address, $phone, $email, $uname){
 	$sql = "UPDATE users SET fname='$name', tempat_lahir='$pob', tanggal_lahir='$dob', alamat='$address',
@@ -314,13 +315,11 @@ function updateUser_2($id, $name, $dob, $pob, $address, $phone, $email, $uname){
 		$res = mysqli_query($GLOBALS['link'], $sql);
 	$sql_2 = "UPDATE auth SET uname='$uname' WHERE user_auth='$id'";
 		$res_2 = mysqli_query($GLOBALS['link'], $sql_2);
-	mysqli_query();
 }
 function setPass($id, $pword_c){
 	$pass = encrypt($pword_c,$id);
 	$sql = "UPDATE auth SET pword = '$pass'  WHERE user_auth = '$id' ";
-	$res = mysqli_query($GLOBALS['link'], $sql);s;
-	mysqli_query();
+	$res = mysqli_query($GLOBALS['link'], $sql);
 }
 // ================================================================================================================
 // Delete User
@@ -551,7 +550,7 @@ function import_excel_students($filename){
 
 	$sql = "DELETE FROM students_up_tmp WHERE idstudent IN (SELECT idstudent FROM students_reject_tmp)";
 		mysqli_query($GLOBALS['link'], $sql); // delete data students_up_tmp jika data sama dengan table tudents_reject_tmp
-		mysqli_close(); 
+		mysqli_close($GLOBALS['link']); 
 	}
 
 function reduceUploadRejecttmp(){
@@ -591,7 +590,7 @@ function saveStudents($filename){
 		$sqe_b++;
 		$sqe_o++;
 	}
-	mysqli_close();
+	mysqli_close($GLOBALS['link']);
 }
 function savePointStudent($id,$name,$email){
 	$date = date('dmy');
@@ -797,7 +796,7 @@ function resetImport(){
 // Create Program
 function addProgram($name,$subject,$margin,$tot,$duration,$passgrade){
 	$sql= "SELECT max(id_program) from programs";
-	$carikode = mysqli_query($GLOBALS['link'],$sql) or die (mysqli_error());
+	$carikode = mysqli_query($GLOBALS['link'],$sql) or die (mysqli_error($GLOBALS['link']));
 		// menjadikannya array
 		$datakode = mysqli_fetch_array($carikode);
 		// jika $datakode
@@ -828,7 +827,7 @@ function deleteProgram($id){
 	$res = mysqli_query($GLOBALS['link'],$sql);
 }
 function editProgram($id){
-	$sql = "SELECT a.id_program,a.program_name,a.margin,b.id_subject,b.percent,b.id,a.sum_question 
+	$sql = "SELECT a.id_program,a.program_name,a.margin,b.id_subject,b.percent,b.id,a.sum_question,a.duration
 	from programs a join program_detail b on a.id_program = b.id_program where a.id_program = '$id'";
 	$res = mysqli_query($GLOBALS['link'],$sql);
 	return $res;
@@ -849,8 +848,8 @@ function showProgram(){
 	return $res;
 }
 
-function updateProgram($id,$name,$subject,$margin,$percent,$no_id,$tot){
-	$sql = "UPDATE `programs` SET `program_name`='".sqlValue($name)."',`margin`=$margin, sum_question=$tot WHERE `id_program`='$id'";
+function updateProgram($id,$name,$subject,$margin,$percent,$no_id,$tot,$duration){
+	$sql = "UPDATE `programs` SET `program_name`='".sqlValue($name)."',`margin`=$margin, duration=$duration, sum_question=$tot WHERE `id_program`='$id'";
 	$res = mysqli_query($GLOBALS['link'],$sql) or die('Error');
 	foreach ($subject as $key => $value) {
 		if ($percent[$key]>0) {
@@ -942,7 +941,7 @@ function createClass($id,$id_g,$class){
 	$sql = "INSERT INTO `exam_class` (`id_class`, `id_customer`, `name_class`) 
 	VALUES ('$id', '$id_g', '$class')" ;
 	$res =  mysqli_query($GLOBALS['link'],$sql);
-	mysqli_close();
+	mysqli_close($GLOBALS['link']);
 }
 
 function detClass($class){
@@ -953,9 +952,9 @@ function detClass($class){
 }
 
 function editClass($class,$nameclass){
-	$sql = "UPDATE exam_class SET name_class ='$nameclass' WHERE id_class = '$class'" ;
-	$res =  mysqli_query($GLOBALS['link'],$sql);
-	mysqli_close();
+	$sql = "UPDATE exam_class SET name_class ='$nameclass' WHERE id_class = '$class'";
+	mysqli_query($GLOBALS['link'],$sql);
+	mysqli_close($GLOBALS['link']);
 }
 // ================================================================================================================
 // Create Exam
@@ -1573,10 +1572,10 @@ function groupReport($id_g,$name,$date_1,$date_2,$program){
 	$acc = mysqli_num_rows($res1);
 	if ($acc > 0) {
 		return $table;
-		mysqli_close();
+		mysqli_close($GLOBALS['link']);
 	}else {
 		return '0' ;
-		mysqli_close();
+		mysqli_close($GLOBALS['link']);
 	}
 	// return $sql;
 }
@@ -1973,8 +1972,8 @@ function studentLogin($id_peserta,$password){
 	//echo $sql
 	//echo $id_peserta.'===='.$password;
 
-	$rs=mysqli_query($GLOBALS['link'],$sql) or die(mysqli_error());
-	$rs_qwr=mysqli_query($GLOBALS['link'],$qwr) or die(mysqli_error());
+	$rs=mysqli_query($GLOBALS['link'],$sql) or die(mysqli_error($GLOBALS['link']));
+	$rs_qwr=mysqli_query($GLOBALS['link'],$qwr) or die(mysqli_error($GLOBALS['link']));
 //	print_r(mysqli_num_rows($rs));
 //	print_r($rs);
 //	die();

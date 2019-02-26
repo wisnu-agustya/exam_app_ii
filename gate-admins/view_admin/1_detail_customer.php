@@ -60,6 +60,7 @@
 				$address = $_POST['address'];
 				$phone = $_POST['phone'];
 				$email = $_POST['email'];
+				$result = $_POST['vires'];
 				if ($_FILES['logo']['name']!=null) {
 					$type = explode('.',$_FILES['logo']['name']);
 					$namaFile = "logo-".$name.$today.".".$type[1];
@@ -68,8 +69,9 @@
 					$terupload = move_uploaded_file($namaSementara, $dirUpload.$namaFile);
 				} else {
 					$namaFile=$_POST['logo_lama'];
-				}
-				updateCustomer($id,$name,$address,$phone,$email,$namaFile);
+				}				
+				updateCustomer($id,$name,$address,$phone,$email,$namaFile,$result);
+
 				break;
 			default:
 				# code...

@@ -7,7 +7,16 @@
 				$program = $_POST['program'];
 				$amount = $_POST['amount'];
 				$type = $_POST['type'];
-				addVoucher($customer,$program,$amount,$today,$type);
+				$inv_num = $_POST['invoice_num'];
+				$inv_date = $_POST['invoice_date'];
+				if (checkExistingVoucher($customer,$program,$type)) {
+					addVoucher($customer,$program,$amount,$today,$type,$inv_num,$inv_date);
+				}else{
+					echo ("	<script LANGUAGE='JavaScript'>
+						    window.alert(\"Duplicate Voucher\");
+						</script>");
+				}
+				//addVoucher($customer,$program,$amount,$today,$type);
 				break;
 			case 'Delete':
 				$id = $_POST['id'];
@@ -16,7 +25,9 @@
 			case 'top-up':
 				$id = $_POST['id_voucher'];
 				$topup = $_POST['top-up'];
-				topUpVoucher($id,$topup);
+				$inv_num = $_POST['invoice_num'];
+				$inv_date = $_POST['invoice_date'];
+				topUpVoucher($id_v,$topup,$inv_num,$inv_date);
 				break;
 			default:
 				# code...
@@ -95,7 +106,7 @@ input[type=radio] + label {
 					<tbody>
 						<?php
 							$no = 1;
-							$result=showVoucher();
+							$result=showVoucher(null,null);
 							while($row = mysqli_fetch_array($result)){
 								echo '
 								<tr>

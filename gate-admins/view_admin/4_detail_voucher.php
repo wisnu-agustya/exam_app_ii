@@ -98,7 +98,7 @@
 		    if (isset($_POST['start'])) {
 		    	$view=historyVoucher($id_voucher,$_POST['start'],$_POST['end']);
 			}else{
-				$view=historyVoucher($id_voucher);
+				$view=historyVoucher($id_voucher,null,null);
 		    }
 			while($row = mysqli_fetch_array($view)){
 		   		if ($row[1]==0) {$kredit=$row[5]; $debit='';}else{$kredit=''; $debit=$row[9];}

@@ -60,14 +60,14 @@ if (isset($_POST['cmd'])) {
       break;
     case 'remidial':
       $prog = $_POST['program'];
-      $user_remidial = userRemidial($prog,$_SESSION['admin_group']);
+      $user_remidial = userRemidial($prog,$_SESSION['admin_group'],null);
       break;
     case 'submit_remidial':
       $prog = $_POST['program'];
       $user = $_POST['remidial'];
       $cust_group = $_SESSION['admin_group'];
       sendUserRemidial($user,$prog,$cust_group);
-      $user_remidial = userRemidial($prog,$_SESSION['admin_group']);
+      $user_remidial = userRemidial($prog,$_SESSION['admin_group'],null);
         echo '<script>alert("Data peserta remidial sudah di Ajukan");</script>';
 
       break;
@@ -76,15 +76,15 @@ if (isset($_POST['cmd'])) {
       break;
   }
 }
-$view_1 = resStudent();
-$view_2 = resStudentRej();
-$view_3 = resStudentDup();
-$ck_up = resViewStudent();
-if($row = mysqli_num_rows($ck_up) != 0){$ck = 1;}
-$ck_re = resViewStudentReject();
-if($row = mysqli_num_rows($ck_re) != 0){$ck = 1;}
-$ck_du = resViewStudentDupli();
-if($row = mysqli_num_rows($ck_du) != 0){$ck = 1;}
+// $view_1 = resStudent();
+// $view_2 = resStudentRej();
+// $view_3 = resStudentDup();
+// $ck_up = resViewStudent();
+// if($row = mysqli_num_rows($ck_up) != 0){$ck = 1;}
+// $ck_re = resViewStudentReject();
+// if($row = mysqli_num_rows($ck_re) != 0){$ck = 1;}
+// $ck_du = resViewStudentDupli();
+// if($row = mysqli_num_rows($ck_du) != 0){$ck = 1;}
 ?>
 <style>
 #tb1
@@ -125,7 +125,7 @@ float: left;
                     <select class="form-control " name='program' onchange="submit()">
                       <option class="form-control " value=0>-</option>     
                       <?php
-                       $voucher = showVoucher($_SESSION['admin_group']);
+                       $voucher = showVoucher($_SESSION['admin_group'],null);
                         while ($row=mysqli_fetch_array($voucher)) {
                           if ($row[5]==$prog) {
                             echo "<option class=\"form-control input-sm\" value='".$row[5]."'' selected>".$row[2]."</option>";

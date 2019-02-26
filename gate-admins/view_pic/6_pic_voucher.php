@@ -71,7 +71,7 @@ input[type=radio] + label {
 					<tbody>
 					<?php
 					$no = 1;
-					$result=showVoucher($id);
+					$result=showVoucher($id,null);
 					while($row = mysqli_fetch_array($result)){
 						echo '
 						<tr>

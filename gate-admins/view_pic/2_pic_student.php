@@ -63,15 +63,15 @@ if (isset($_POST['cmd'])) {
       break;
   }
 }
-$view_1 = resStudent();
-$view_2 = resStudentRej();
-$view_3 = resStudentDup();
-$ck_up = resViewStudent();
-if($row = mysqli_num_rows($ck_up) != 0){$ck = 1;}
-$ck_re = resViewStudentReject();
-if($row = mysqli_num_rows($ck_re) != 0){$ck = 1;}
-$ck_du = resViewStudentDupli();
-if($row = mysqli_num_rows($ck_du) != 0){$ck = 1;}
+// $view_1 = resStudent();
+// $view_2 = resStudentRej();
+// $view_3 = resStudentDup();
+// $ck_up = resViewStudent();
+// if($row = mysqli_num_rows($ck_up) != 0){$ck = 1;}
+// $ck_re = resViewStudentReject();
+// if($row = mysqli_num_rows($ck_re) != 0){$ck = 1;}
+// $ck_du = resViewStudentDupli();
+// if($row = mysqli_num_rows($ck_du) != 0){$ck = 1;}
 ?>
 <style>
 #tb1
