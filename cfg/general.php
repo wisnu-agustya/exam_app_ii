@@ -1,35 +1,35 @@
 <?php
+
 session_cache_limiter('nocache');
 $cache_limiter = session_cache_limiter();
 date_default_timezone_set('Asia/Jakarta');
 session_start();
 /*ERROR REPORTING*/
 //error_reporting(E_ALL ^ E_NOTICE);
-ini_set('display_errors', '0');     # don't show any errors...
-error_reporting(E_ALL | E_STRICT);  # ...but do log them
-
+ini_set('display_errors', '0');     // don't show any errors...
+error_reporting(E_ALL | E_STRICT);  // ...but do log them
 
 /*PATH*/
 //$GLOBALS["app-path"]="/myweb/exam/";
-$GLOBALS["app-path"]="/exam_app_ii/";
-$GLOBALS["xls-reader-dir"]="classes/PHPExcel_1.8.0/Classes/";
-$GLOBALS["tmp-dir"]="tmp/";
-$GLOBALS["img-soal-dir"]="assets/img-soal/";
+$GLOBALS['app-path'] = '/exam_app_ii/';
+$GLOBALS['xls-reader-dir'] = 'classes/PHPExcel_1.8.0/Classes/';
+$GLOBALS['tmp-dir'] = 'tmp/';
+$GLOBALS['img-soal-dir'] = 'assets/img-soal/';
 
 /*const*/
-$GLOBALS["bobot_soal"][1]="<font color=\"green\">easy</font>";
-$GLOBALS["bobot_soal"][2]="<font color=\"brown\">medium</font>";
-$GLOBALS["bobot_soal"][3]="<font color=\"red\">hard</font>";
-$GLOBALS["status_id_peserta"][0]="<font color=\"grey\">Not Active</font>";
-$GLOBALS["status_id_peserta"][1]="Active";
+$GLOBALS['bobot_soal'][1] = '<font color="green">easy</font>';
+$GLOBALS['bobot_soal'][2] = '<font color="brown">medium</font>';
+$GLOBALS['bobot_soal'][3] = '<font color="red">hard</font>';
+$GLOBALS['status_id_peserta'][0] = '<font color="grey">Not Active</font>';
+$GLOBALS['status_id_peserta'][1] = 'Active';
 
 /*EMAIL*/
 //$GLOBALS["phpmail-dir"]="classes/mail/";
 //$GLOBALS["phpmail-class"]="htmlMimeMail";
-$GLOBALS["phpmail-dir"]="classes/PHPMailer/";
-$GLOBALS["phpmail-class"]="PHPMailer";
+$GLOBALS['phpmail-dir'] = 'classes/PHPMailer/';
+$GLOBALS['phpmail-class'] = 'PHPMailer';
 //$GLOBALS["PHPMailer_SMTPDebug"] = 3; //debug mode. set higher (2 or 1)  for more details
-$GLOBALS["mail_html_dir"]="mailbuff/";
+$GLOBALS['mail_html_dir'] = 'mailbuff/';
 /*smtp setting read from db*/
 /*
 gmail setting:
@@ -65,8 +65,7 @@ $GLOBALS["mail_from_name"]="Trust Learning Demo";
 */
 
 /*DB*/
-$GLOBALS["db_host"]="127.0.0.1";
-$GLOBALS["db_user"]="root";
-$GLOBALS["db_password"]="M4rch";
-$GLOBALS["db_name"]="db_exam";
-?>
+$GLOBALS['db_host'] = '127.0.0.1';
+$GLOBALS['db_user'] = 'root';
+$GLOBALS['db_password'] = 's3mu@s4m4';
+$GLOBALS['db_name'] = 'db_exam';

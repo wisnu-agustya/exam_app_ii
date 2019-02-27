@@ -33,9 +33,10 @@
 				$no_id = $_POST['no_id'];
 				$name = $_POST['name'];
 				$margin = $_POST['margin'];
+				$duration = $_POST['duration'];
 				$subject = $_POST['subject'];
 				$percent = $_POST['percent'];
-				updateProgram($id,$name,$subject,$margin,$percent,$no_id,$tot);
+				updateProgram($id,$name,$subject,$margin,$percent,$no_id,$tot,$duration);
 				break;
 			case 'Delete':
 				$id = $_POST['id'];

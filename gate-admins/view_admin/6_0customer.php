@@ -7,15 +7,16 @@
 				$address = $_POST['address'];
 				$phone = $_POST['phone'];
 				$email = $_POST['email'];
+				$result = $_POST['vires'];
 				$type = explode('.',$_FILES['logo']['name']);
 				$namaFile = "logo-".$name.$today.".".$type[1];
 				$namaSementara = $_FILES['logo']['tmp_name'];
 				$dirUpload = "../assets/img/logo/";
 				$terupload = move_uploaded_file($namaSementara, $dirUpload.$namaFile);
 				if ($terupload) {
-				    addCustomer($name,$address,$phone,$email,$namaFile);
+						addCustomer($name,$address,$phone,$email,$namaFile,$result);
 				} else {
-				    echo "Upload Gagal!";
+						echo "Upload Gagal!";
 				}
 				break;
 			case 'Update':
@@ -24,6 +25,7 @@
 				$address = $_POST['address'];
 				$phone = $_POST['phone'];
 				$email = $_POST['email'];
+				$result = $_POST['vires'];
 				if ($_FILES['logo']['name']!=null) {
 					$type = explode('.',$_FILES['logo']['name']);
 					$namaFile = "logo-".$name.$today.".".$type[1];
@@ -33,7 +35,8 @@
 				} else {
 					$namaFile=$_POST['logo_lama'];
 				}
-				updateCustomer($id,$name,$address,$phone,$email,$namaFile);
+				updateCustomer($id,$name,$address,$phone,$email,$namaFile,$result);
+				
 				break;
 			case 'Delete':
 				$id = $_POST['id'];

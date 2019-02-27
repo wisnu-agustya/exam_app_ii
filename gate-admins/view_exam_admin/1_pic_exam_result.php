@@ -48,7 +48,7 @@ if (isset($_POST['cmd'])) {
                 </thead>
                 <tbody><?php
                 $no = 1;
-                $result=showExam($id_g);
+                $result=showExam($id_g,null);
                 while($row = mysqli_fetch_array($result)){
                   if ($row[4]!=null) {
                     $token="<button type=\"button\" class=\"btn btn-xs btn-block btn-warning \" onclick=\"show_token('$row[4]')\" >$row[4]</button>";

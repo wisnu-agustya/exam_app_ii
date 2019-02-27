@@ -95,18 +95,18 @@
 		    </thead>
 		    <?php
 		    $no=1;
-		    if (isset($_POST['start'])) {
+				if (isset($_POST['start'])) {
 		    	$view=historyVoucher($id_voucher,$_POST['start'],$_POST['end']);
 			}else{
-				$view=historyVoucher($id_voucher);
+				$view=historyVoucher($id_voucher,null,null);
 		    }
 			while($row = mysqli_fetch_array($view)){
-				if ($row[1]==0) {$kredit=$row[5]; $debit='';}else{$kredit=''; $debit=$row[9];}
+		   		if ($row[1]==0) {$kredit=$row[5]; $debit='';}else{$kredit=''; $debit=$row[9];}
 				if ($row[1]==0) {
 					$desc="<b>(".$row[11].")</b> <br>
 					Invoice Number : ".$row[7]." / Date : ".tanggal_indo($row[8]);
 				}else{
-					$desc="<b>Exam Group : </b>".$row[10];
+					$desc="<b>Exam Group : </b>".$row[10]."  <a href = '?pg=detail_exam&id=$id_voucher.".$row[1]."' class=\"btn btn-xs btn-primary \"><i class=\"fa fa-info-circle\"></i>  Detail</a>"; 
 				}
 				echo "
 				<tr>

@@ -75,7 +75,7 @@
 							<input type="checkbox" id="selectall" onClick="selectAllvoucher(this)">Check All
 							<div class="scroll" id="box1" >
 							<?php
-								$result=showVoucher($id_customer);
+								$result=showVoucher($id_customer,null);
 								while($row = mysqli_fetch_array($result)){
 									if ($row[0]!='C0000') {
 									echo "

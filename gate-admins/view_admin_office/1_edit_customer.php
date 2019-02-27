@@ -31,6 +31,14 @@ $result = mysqli_fetch_array($rs);
 			<input class="form-control"  name="email" value="<?=$result[4]?>">
 		</div>
 		<div class="form-group">
+			<label>View Result</label>
+		 	<select name="vires" id="" class="form-control">
+			 	<option value="<?= $v_res[2] ?>"><?= $vs ?>*</option>
+				<option value="true">Display</option>
+				<option value="false">Not Display</option>
+			</select>
+		</div>
+		<div class="form-group">
 			<label>Logo</label>
 			<div class="row">
 				<div class="col-lg-6"><img src="../assets/img/logo/<?=$result[5]?>" height="150px" width="150"></div>

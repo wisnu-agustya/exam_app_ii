@@ -7,7 +7,15 @@ if (isset($_POST['cmd'])) {
 			$program = $_POST['program'];
 			$amount = $_POST['amount'];
 			$type = $_POST['type'];
-			addVoucher($customer, $program, $amount, $today, $type);
+			$inv_num = $_POST['invoice_num'];
+			$inv_date = $_POST['invoice_date'];
+			if (checkExistingVoucher($customer,$program,$type)) {
+				addVoucher($customer,$program,$amount,$today,$type,$inv_num,$inv_date);
+			}else{
+				echo ("	<script LANGUAGE='JavaScript'>
+							window.alert(\"Duplicate Voucher\");
+					</script>");
+			}
 			break;
 		case 'Delete':
 			$id = $_POST['id'];
@@ -51,7 +59,7 @@ if (isset($_POST['cmd'])) {
 					<tbody>
 					<?php
 					$no = 1;
-					$result = showAllVoucher($id);
+					$result = showAllVoucher($id,null);
 					while ($row = mysqli_fetch_array($result)) {
 						echo '
 							<tr>
@@ -61,7 +69,7 @@ if (isset($_POST['cmd'])) {
 								<td>' . $row[4] . '</td>
 								<td>' . $row[3] . '</td>
 								<td>
-									<a href ="?pg=detail_voucher&id=' . $row[0] . '" > <button type="button" class="btn btn-xs btn-info "><i class="fa fa-table"></i>  Stock Card</button></a> 
+									<a href ="?pg=detail_voucher&id=' . $row[0] . '" > <button type="button" class="btn btn-xs btn-info "><i class="fa fa-table"></i>  Stock Card</button></a> <a href ="?pg=approve_remidial&id_cust='.$id.'&prog='.$row[5].'" class="btn btn-xs btn-success "> <i class="fa fa-check-square-o"></i>  Approve Remidial</a>
 									<button type="button" class="btn btn-xs btn-primary "  data-id="' . $row[0] . '" data-toggle="modal" data-target="#topup_voucher"><i class="fa fa-shopping-cart"></i>  Transaksi</button> &nbsp
 							</tr>';
 						$no++;
@@ -148,7 +156,17 @@ if (isset($_POST['cmd'])) {
 
 			<script>
 			$(document).ready(function() {
-				$('#tbVoucher').DataTable();
+				$('#tbVoucher').DataTable({
+				"paging": true,
+				"columnDefs":[
+					{"width": "2%", "targets":0},
+					{"width": "35%", "targets":1},
+					{"width": "10%", "targets":2},
+					{"width": "10%", "targets":3},
+					{"width": "10%", "targets":4},
+					{"width": "30%", "targets":5}
+				]
+				});
 			} );
 			</script>
 			

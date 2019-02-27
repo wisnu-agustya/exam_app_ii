@@ -7,7 +7,8 @@
 				OR $_GET['pg'] == 'ExA_exam_create'
 				OR $_GET['pg'] == 'ExA_exam_schedule'
 				OR $_GET['pg'] == 'ExA_exam_result' 
-				OR $_GET['pg'] == 'ExA_result_detail' 
+				OR $_GET['pg'] == 'ExA_result_detail'
+				OR $_GET['pg'] == 'ExA_sch_edit' 
 				OR $_GET['pg'] == 'ExA_sch_detail') {echo 'class="active"';} ?>>
 				<a data-toggle="collapse" href="#sub-item-2">
 					<em class="fa fa-navicon">&nbsp;</em> Exam 

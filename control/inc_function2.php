@@ -976,20 +976,19 @@ function cekSessionExist()
         return false;
     }
 }
-function cekOpportunity()
-{
-    global $id_peserta,$exam_group;
-    $sql = "select max(notif) from user_test where id_peserta = '".sqlValue($id_peserta)."'";
-    $rs = mysqli_query($GLOBALS['link'], $sql) or die(mysqli_error($GLOBALS['link']));
-    $dataUserTest = mysqli_fetch_row($rs);
-    $sql1 = "select count(a.id_student) from exam_participants a inner join exam_group b on a.exam_group=b.exam_code where a.id_student = '".sqlValue($id_peserta)."' AND b.id_voucher=(select id_voucher from exam_group where exam_code = $exam_group) and b.exam_code !=$exam_group";
-    $rs1 = mysqli_query($GLOBALS['link'], $sql1) or die(mysqli_error($GLOBALS['link']).'<br>'.$sql1);
-    $sumParticipant = mysqli_fetch_array($rs1);
-    if ($dataUserTest[0] >= $sumParticipant[0]) {
-        return true;
-    } else {
-        return false;
-    }
+function cekOpportunity(){ // untuk menghitung ujian user sudah remidial
+	global $id_peserta,$exam_group;
+	$sql="select max(notif) from user_test where id_peserta = '".sqlValue($id_peserta)."'";
+	$rs=mysqli_query($GLOBALS['link'],$sql) or die(mysqli_error($GLOBALS['link']));
+	$dataUserTest=mysqli_fetch_row($rs);
+	$sql1="select count(a.id_student) from exam_participants a inner join exam_group b on a.exam_group=b.exam_code where a.id_student = '".sqlValue($id_peserta)."' AND b.id_voucher=(select id_voucher from exam_group where exam_code = $exam_group) and b.exam_code !=$exam_group";
+	$rs1=mysqli_query($GLOBALS['link'],$sql1) or die(mysqli_error($GLOBALS['link']).'<br>'.$sql1);
+	$sumParticipant=mysqli_fetch_array($rs1);
+	if ($dataUserTest[0]>=$sumParticipant[0]) {
+		return true;
+	} else {
+		return false;
+	}
 }
 function getDataExam()
 {

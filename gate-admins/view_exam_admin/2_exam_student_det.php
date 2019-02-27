@@ -71,11 +71,13 @@ if (isset($_POST['cmd'])) {
 				<div class="row">
 					<div class="col-md-12">
 					<?php
+					$no=0;
 					$dataProgram = showVoucher($_SESSION['admin_group'],' group by a.id_program');
 					while ($row = mysqli_fetch_array($dataProgram)) {
-						echo $row[2]." - ".$row[5].'<br>';
+						$no++;
+						echo "<h3>".$row[2]." </h3><br>";
 						$table =
-			            '<table class="table table-xs" id="tbStudents"><thead><tr>
+			            '<table class="table table-xs table-bordered" id="tbStudents'.$no.'"><thead><tr>
 			              <th scope = "col" > No </th>
 			              <th scope = "col" > Program </th>
 			              <th scope = "col" > Schedule </th>
@@ -139,7 +141,63 @@ if (isset($_POST['cmd'])) {
 </script>
 <script>
 	$(document).ready(function() {
-		$('#tbStudents').DataTable({
+		$('#tbStudents1').DataTable({
+			"searching": false,
+      "columnDefs":[
+        {"width": "10%", "targets":0},
+        {"width": "30%", "targets":1},
+        {"width": "45%", "targets":2},
+        {"width": "15%", "targets":3},
+      ]
+    });
+	});
+	$(document).ready(function() {
+		$('#tbStudents2').DataTable({
+			"searching": false,
+      "columnDefs":[
+        {"width": "10%", "targets":0},
+        {"width": "30%", "targets":1},
+        {"width": "45%", "targets":2},
+        {"width": "15%", "targets":3},
+      ]
+    });
+	});
+	$(document).ready(function() {
+		$('#tbStudents3').DataTable({
+			"searching": false,
+      "columnDefs":[
+        {"width": "10%", "targets":0},
+        {"width": "30%", "targets":1},
+        {"width": "45%", "targets":2},
+        {"width": "15%", "targets":3},
+      ]
+    });
+	});
+	$(document).ready(function() {
+		$('#tbStudents4').DataTable({
+			"searching": false,
+      "columnDefs":[
+        {"width": "10%", "targets":0},
+        {"width": "30%", "targets":1},
+        {"width": "45%", "targets":2},
+        {"width": "15%", "targets":3},
+      ]
+    });
+	});
+	$(document).ready(function() {
+		$('#tbStudents5').DataTable({
+			"searching": false,
+      "columnDefs":[
+        {"width": "10%", "targets":0},
+        {"width": "30%", "targets":1},
+        {"width": "45%", "targets":2},
+        {"width": "15%", "targets":3},
+      ]
+    });
+	});
+	$(document).ready(function() {
+		$('#tbStudents6').DataTable({
+			"searching": false,
       "columnDefs":[
         {"width": "10%", "targets":0},
         {"width": "30%", "targets":1},
@@ -149,5 +207,3 @@ if (isset($_POST['cmd'])) {
     });
 	});
 </script>
-
-<!--/.row-->

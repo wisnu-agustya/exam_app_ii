@@ -18,6 +18,8 @@
 					$_GET['pg']=='man_voucher'or
 					$_GET['pg']=='man_report'or
 					$_GET['pg']=='man_activity'or 
+					$_GET['pg']=='approve_remidial'or
+					$_GET['pg']=='detail_exam'or 
 					$_GET['pg']=='detail_voucher') 
 				{	echo 'class="active"';}?>>
 				<a href="?pg=admin_man_cust"><em class="fa fa-clone ">&nbsp;</em> Manage Customer</a>

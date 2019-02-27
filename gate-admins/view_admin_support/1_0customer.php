@@ -7,6 +7,7 @@
 				$address = $_POST['address'];
 				$phone = $_POST['phone'];
 				$email = $_POST['email'];
+				$result = $_POST['vires'];
 				$type = explode('.',$_FILES['logo']['name']);
 				$namaFile = "logo-".$name.$today.".".$type[1];
 				$namaSementara = $_FILES['logo']['tmp_name'];
@@ -14,9 +15,9 @@
 				$terupload = move_uploaded_file($namaSementara, $dirUpload.$namaFile);
 
 				if ($terupload) {
-				    addCustomer($name,$address,$phone,$email,$namaFile);
+					addCustomer($name,$address,$phone,$email,$namaFile,$result);
 				} else {
-				    echo "Upload Gagal!";
+						echo "Upload Gagal!";
 				}
 				break;
 			case 'Update':
@@ -25,6 +26,7 @@
 				$address = $_POST['address'];
 				$phone = $_POST['phone'];
 				$email = $_POST['email'];
+				$result = $_POST['vires'];
 				if ($_FILES['logo']['name']!=null) {
 					$type = explode('.',$_FILES['logo']['name']);
 					$namaFile = "logo-".$name.$today.".".$type[1];
@@ -34,7 +36,7 @@
 				} else {
 					$namaFile=$_POST['logo_lama'];
 				}
-				updateCustomer($id,$name,$address,$phone,$email,$namaFile);
+				updateCustomer($id,$name,$address,$phone,$email,$namaFile,$result);
 				break;
 			case 'Delete':
 				$id = $_POST['id'];
@@ -161,6 +163,13 @@
 			          	<div class="form-group">
 							<label>Email</label>
 							<input class="form-control"  name="email" required="" >
+						</div>	
+						<div class="form-group">
+							<label>View Result</label>
+							<select name="vires" id="" class="form-control">
+								<option value="true">Display</option>
+								<option value="false">Not Display</option>
+							</select>
 						</div>
 						<div class="form-group">
 									<label>File Logo</label>

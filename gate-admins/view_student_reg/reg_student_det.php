@@ -22,7 +22,7 @@ if (isset($_POST['cmd'])) {
 	</div>
 	<div class="col-md-12">
 		<div class="panel panel-default">
-			<div class="panel-heading">Student Detail</div>
+			<div class="panel-heading"><a href="?pg=reg_student" class="btn btn-xs btn-danger"><i class="fa fa-arrow-left"></i> Back</a> &nbspStudent Detail</div>
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-12">
@@ -207,5 +207,3 @@ if (isset($_POST['cmd'])) {
     });
 	});
 </script>
-
-<!--/.row-->
