@@ -67,5 +67,5 @@ $GLOBALS["mail_from_name"]="Trust Learning Demo";
 /*DB*/
 $GLOBALS['db_host'] = '127.0.0.1';
 $GLOBALS['db_user'] = 'root';
-$GLOBALS['db_password'] = 'M4rch';
+$GLOBALS['db_password'] = 's3mu@s4m4';
 $GLOBALS['db_name'] = 'db_exam';
