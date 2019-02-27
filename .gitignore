@@ -1,5 +1,5 @@
-assets/images/*
-assets/img/*
-assets/img-soal/*
-tmp/*
-cfg/*
+assets/images/
+assets/img/
+assets/img-soal/
+tmp/
+cfg/
