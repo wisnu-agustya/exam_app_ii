@@ -2,4 +2,4 @@ assets/images/*
 assets/img/*
 assets/img-soal/*
 tmp/*
-#cfg/general.php
+cfg/general.php
